@@ -5,22 +5,27 @@ import {
   Route
 } from 'react-router-dom'
 
-import CharactersList from './screens/CharactersResults'
+import { CharactersFavContextProvider } from './context/CharactersFavContext'
+
+import CharactersResults from './screens/CharactersResults'
 import CharacterDetail from './screens/CharacterDetail'
 import Layout from './components/Layout'
 
+import GlobalStyles from './styles/GlobalStyles'
+
 function App () {
   return (
-    <div>
-      <BrowserRouter>
+    <BrowserRouter>
+      <CharactersFavContextProvider>
         <Layout>
+          <GlobalStyles />
           <Routes>
-            <Route path="/" element={<CharactersList />} />
+            <Route path="/" element={<CharactersResults />} />
             <Route path="/:id" element={<CharacterDetail />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
-    </div>
+      </CharactersFavContextProvider>
+    </BrowserRouter>
   )
 }
 

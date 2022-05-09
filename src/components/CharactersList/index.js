@@ -21,10 +21,10 @@ const CharactersList = ({ characters, buttonParams }) => {
 
 CharactersList.propTypes = {
   characters: PropTypes.array.isRequired,
-  buttonParams: PropTypes.objectOf(PropTypes.shape({
+  buttonParams: PropTypes.shape({
     handlerFunction: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired
-  }))
+  })
 }
 
 export default CharactersList

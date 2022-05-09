@@ -1,25 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
+
+import { CharactersFavContext } from '../../context/CharactersFavContext'
 
 import CharactersList from '../CharactersList'
 
-const CharactersFav = ({ characters }) => {
+const CharactersFav = () => {
+  const { favorites, handleDeleteFromFavorite } = useContext(CharactersFavContext)
+
   return (
     <div>
       <h4>Favorites</h4>
       <CharactersList
-        characters={characters}
+        characters={favorites}
         buttonParams={{
-          handlerFunction: () => {},
+          handlerFunction: handleDeleteFromFavorite,
           text: 'Remove from favorites'
         }}
       />
     </div>
   )
-}
-
-CharactersFav.propTypes = {
-  characters: PropTypes.array.isRequired
 }
 
 export default CharactersFav

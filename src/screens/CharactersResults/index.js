@@ -1,29 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 
 import useFetch from '../../hooks/useFetch'
 
+import { CharactersFavContext } from '../../context/CharactersFavContext'
+
+import CharactersFilter from '../../components/CharactersFilter'
 import CharactersFav from '../../components/CharactersFav'
 import CharactersList from '../../components/CharactersList'
 
 const CharactersResults = () => {
-  const [favorites, setFavorites] = useState([])
+  const { favorites, handleAddToFavorite } = useContext(CharactersFavContext)
 
   const {
     characters,
     loading,
-    errors
+    errors,
+    handleCharacterFilter
   } = useFetch(`${process.env.REACT_APP_BASE_URL_API}/character`)
-
-  const handleAddToFavorite = (character) => {
-    const existInFavorites = favorites.some(characterFav => characterFav.id === character.id)
-
-    if (!existInFavorites) {
-      setFavorites([
-        ...favorites,
-        character
-      ])
-    }
-  }
 
   if (errors) {
     return <div>Error</div>
@@ -35,6 +28,7 @@ const CharactersResults = () => {
 
   return (
     <>
+      <CharactersFilter handleCharacterFilter={handleCharacterFilter} />
       <CharactersList
         characters={characters}
         buttonParams={{
@@ -42,7 +36,7 @@ const CharactersResults = () => {
           text: 'Add to favorites'
         }}
       />
-      <CharactersFav characters={favorites} />
+      {favorites.length > 0 && <CharactersFav />}
     </>
   )
 }

@@ -3,8 +3,17 @@ import axios from 'axios'
 
 const useFetch = (urlApi) => {
   const [characters, setCharacters] = useState([])
+  const [charactersFilter, setCharactersFilter] = useState([])
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState(false)
+
+  const handleCharacterFilter = (event) => {
+    setCharactersFilter(
+      characters.filter(character =>
+        character.name.toLowerCase().search(event.target.value.toLowerCase().trim()) >= 0
+      )
+    )
+  }
 
   const fetchData = async () => {
     try {
@@ -21,13 +30,17 @@ const useFetch = (urlApi) => {
   }
 
   useEffect(() => {
-    fetchData().then(characters => setCharacters(characters))
+    fetchData().then(characters => {
+      setCharacters(characters)
+      setCharactersFilter(characters)
+    })
   }, [])
 
   return {
-    characters,
+    characters: charactersFilter.length > 0 ? charactersFilter : characters,
     loading,
-    errors
+    errors,
+    handleCharacterFilter
   }
 }
 
