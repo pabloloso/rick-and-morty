@@ -1,19 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+
+import CharacterCard from '../CharacterCard'
 
 const CharactersList = ({ characters, buttonParams }) => {
-  const { handlerFunction, text } = buttonParams
-
   return (
     <div>
       {characters.map(character => (
-        <div key={character.id}>
-          <img src={character.image} />
-          <h4>{character.name}</h4>
-          <Link to={`/${character.id}`}>Details</Link>
-          <button onClick={() => handlerFunction(character)}>{text}</button>
-        </div>
+        <CharacterCard
+          key={character.id}
+          character={character}
+          buttonParams={buttonParams}
+        />
       ))}
     </div>
   )

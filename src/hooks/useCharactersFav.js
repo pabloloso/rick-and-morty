@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const useCharactersFav = () => {
-  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('CharactersFav')))
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('CharactersFav')) || [])
 
   const handleAddToFavorite = (character) => {
     const existInFavorites = favorites.some(characterFav => characterFav.id === character.id)
